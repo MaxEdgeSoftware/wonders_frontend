@@ -1,0 +1,2337 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Holiday Dialysis API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Register user",
+                "description": "Create new user",
+                "operationId": "register",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email Field",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Logs in user",
+                "description": "Logs in user and gives access to authenticated resources",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email Field",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a credential User."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Logs out user",
+                "description": "Logs out user",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/resend-verification": {
+            "post": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Resend email verification email",
+                "description": "Resend email verification email",
+                "operationId": "resendVerificationEmail",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/verify-account": {
+            "post": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Resend email verification email",
+                "description": "Resend email verification email",
+                "operationId": "verifyAccount",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/change-password": {
+            "post": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Change user password",
+                "description": "Change user password",
+                "operationId": "changePassword",
+                "parameters": [
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/forgot-password": {
+            "post": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Initiate password reset process",
+                "description": "Send password reset link to email",
+                "operationId": "forgotPassword",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/reset-password/{token}": {
+            "get": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "confirm password reset token",
+                "description": "Confirm the password reset token",
+                "operationId": "validateResetToken",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful validated",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/reset-password": {
+            "put": {
+                "tags": [
+                    "Users/Auth"
+                ],
+                "summary": "Reset password",
+                "description": "Reset user password",
+                "operationId": "resetPassword",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/clinics": {
+            "get": {
+                "tags": [
+                    "clinics"
+                ],
+                "summary": "Get list of clinics",
+                "description": "Returns list of clinics",
+                "operationId": "204c6094d9fbc018612dc20454e2a54c",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "clinics"
+                ],
+                "summary": "Add new clinic",
+                "description": "Create new clinic",
+                "operationId": "f266516cbcea7b7b192720d3297e50b9",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of clinic",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "about",
+                        "in": "query",
+                        "description": "description of clinic",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "clinic email address",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tel_no",
+                        "in": "query",
+                        "description": "phone number of clinic",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contact_name",
+                        "in": "query",
+                        "description": "contact name in clinic",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "address of clinic",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "country of location",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "description": "longitude of clinic",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "description": "latitude of clinic",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "display_pic": {
+                                        "description": "clinic display picture",
+                                        "type": "file"
+                                    },
+                                    "gallery[]": {
+                                        "description": "gallery of clinics",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "file"
+                                        }
+                                    },
+                                    "facilities[]": {
+                                        "description": "clinic facilities/features",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "format": "id"
+                                        },
+                                        "collectionFormat": "multi"
+                                    },
+                                    "patient_type[]": {
+                                        "description": "patient types accepted by clinic",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "format": "id"
+                                        },
+                                        "collectionFormat": "multi"
+                                    },
+                                    "payment_option[]": {
+                                        "description": "accepted payment options",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "format": "id"
+                                        },
+                                        "collectionFormat": "multi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/clinics/{id}": {
+            "get": {
+                "tags": [
+                    "clinics"
+                ],
+                "summary": "Get single clinic",
+                "description": "Returns details of single clinic",
+                "operationId": "b60b060333fe5b32bb941c549a062d10",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "clinic id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/clinics/places": {
+            "get": {
+                "tags": [
+                    "clinics"
+                ],
+                "summary": "Get places",
+                "description": "Returns list of places",
+                "operationId": "376665643a66f684a636ba1ab910b43f",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/days": {
+            "get": {
+                "tags": [
+                    "days"
+                ],
+                "summary": "Get list of days",
+                "description": "Returns list of days",
+                "operationId": "8f4ac099c7a75bf9f23bbcc1c0645d25",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "days"
+                ],
+                "summary": "Add new days",
+                "description": "Create new days",
+                "operationId": "1f2177b4ca1fe7d65135bcda7ed74d89",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of day",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/days/{id}": {
+            "get": {
+                "tags": [
+                    "days"
+                ],
+                "summary": "Get single day",
+                "description": "Returns details of single day",
+                "operationId": "4a3866e3c3ef7494432a7066c00ed9cf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "treatment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "days"
+                ],
+                "summary": "Update single day",
+                "description": "update single day record",
+                "operationId": "3369b716dba2716b6eb5207d992e78c6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "day id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "day name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status of day name active/inactive",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Active",
+                            "enum": [
+                                "Active",
+                                "Inactive"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/facilities": {
+            "get": {
+                "tags": [
+                    "facilities"
+                ],
+                "summary": "Get list of facilities",
+                "description": "Returns list of facilities",
+                "operationId": "9817b667d08a6693373d20e5f0681ff5",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "facilities"
+                ],
+                "summary": "Add new facility",
+                "description": "Create new facility",
+                "operationId": "7b1c511e9add81c89745d0b00d6d593c",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of facility",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/facilities/{id}": {
+            "get": {
+                "tags": [
+                    "facilities"
+                ],
+                "summary": "Get single facility",
+                "description": "Returns details of single facility",
+                "operationId": "85bd401f59bca60f78186e1bfac06899",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "facility id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "facilities"
+                ],
+                "summary": "Update single facility",
+                "description": "update single facility record",
+                "operationId": "fff857456a5efb3d6a82f10ec1b00406",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "facility id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "facility name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status of facility active/inactive",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Active",
+                            "enum": [
+                                "Active",
+                                "Inactive"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/feedback": {
+            "post": {
+                "tags": [
+                    "Users/Feedback"
+                ],
+                "summary": "User Feedback",
+                "description": "Send a feedback",
+                "operationId": "userFeedback",
+                "parameters": [
+                    {
+                        "name": "about",
+                        "in": "query",
+                        "description": "About Field",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Category",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "comments",
+                        "in": "query",
+                        "description": "Comments",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/patient-types": {
+            "get": {
+                "tags": [
+                    "patient types"
+                ],
+                "summary": "Get list of patient types",
+                "description": "Returns list of patient types that clinics accept",
+                "operationId": "d82e6a3051279926281fc506ccbb7145",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "patient types"
+                ],
+                "summary": "Add new patient-type",
+                "description": "Create new patient-type",
+                "operationId": "ebd576ab00f3a12106a5bc233109fc19",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of patient-types",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/patient-types/{id}": {
+            "get": {
+                "tags": [
+                    "patient types"
+                ],
+                "summary": "Get single patient type",
+                "description": "Returns details of single patient type",
+                "operationId": "24de95154fae7f7c1ef3d37811bc6b68",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "patient type id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "patient types"
+                ],
+                "summary": "Update single patient type",
+                "description": "update single patient type record",
+                "operationId": "f162276219edb3427be0ad95025422dd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "patient type id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "patient type name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status of patient type active/inactive",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Active",
+                            "enum": [
+                                "Active",
+                                "Inactive"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/payment-option": {
+            "get": {
+                "tags": [
+                    "payment options"
+                ],
+                "summary": "Get list of payment options",
+                "description": "Returns list of payment options",
+                "operationId": "2ab2c7cc442180cccf20f437237d7fcb",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "payment options"
+                ],
+                "summary": "Add new payment option",
+                "description": "Create new payment option",
+                "operationId": "a75bb7170422fd45874347dfc270bdf9",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of payment option",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/payment-option/{id}": {
+            "get": {
+                "tags": [
+                    "payment options"
+                ],
+                "summary": "Get single payment option",
+                "description": "Returns details of single payment option",
+                "operationId": "ef07fac86ff851d08a9db70996d2cd69",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "payment option id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "payment options"
+                ],
+                "summary": "Update single payment option",
+                "description": "update single payment option record",
+                "operationId": "24c557d5beb078a0acaf471c7bcbcf14",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "payment option id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "payment option name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status of payment option active/inactive",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Active",
+                            "enum": [
+                                "Active",
+                                "Inactive"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shift": {
+            "get": {
+                "tags": [
+                    "shifts"
+                ],
+                "summary": "Get list of shift",
+                "description": "Returns list of shifts",
+                "operationId": "b7b2ecb41d058907a278953e2e8e34d2",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "shifts"
+                ],
+                "summary": "Add new shift",
+                "description": "Create new shift",
+                "operationId": "1a93626131ab2396e91294e97fa2b36e",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of shift",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shift/{id}": {
+            "get": {
+                "tags": [
+                    "shifts"
+                ],
+                "summary": "Get single shift",
+                "description": "Returns details of single shift",
+                "operationId": "96142946462784cfb5ec895a1e146375",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "shift id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "shifts"
+                ],
+                "summary": "Update single shift",
+                "description": "update single shift record",
+                "operationId": "85fb162fa1c3900ef7b3a0917081240f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "shift id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "shift name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status of shift active/inactive",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Active",
+                            "enum": [
+                                "Active",
+                                "Inactive"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/social-review": {
+            "get": {
+                "tags": [
+                    "social review"
+                ],
+                "summary": "Get list of social review",
+                "description": "Returns list of social reviews of clinics based on things such as customer-care, neatness...",
+                "operationId": "9e0d943b8124348990bbdd32c7908308",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "social review"
+                ],
+                "summary": "Add new social review",
+                "description": "Create new social review",
+                "operationId": "84b396a45e9bdf23a814019b7c5ae28c",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of review",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/social-review/{id}": {
+            "get": {
+                "tags": [
+                    "social review"
+                ],
+                "summary": "Get single social review",
+                "description": "Returns details of single social review",
+                "operationId": "c86309df2d31ec98b4e2719db3b6d570",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "social review id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "social review"
+                ],
+                "summary": "Update single social review",
+                "description": "update single social review record",
+                "operationId": "b516a0dae99a6ce141d11f01ad7d2575",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "social review id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "social review name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status of social review active/inactive",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Active",
+                            "enum": [
+                                "Active",
+                                "Inactive"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/treatments": {
+            "get": {
+                "tags": [
+                    "treatments"
+                ],
+                "summary": "Get list of treatments",
+                "description": "Returns list of treatments",
+                "operationId": "96d015d5440a248b6871d5709f793912",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "treatments"
+                ],
+                "summary": "Add new treatments",
+                "description": "Create new treatments",
+                "operationId": "8a7c9a797841582954f4ba9da3bb1bf5",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name of treatment",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/treatments/{id}": {
+            "get": {
+                "tags": [
+                    "treatments"
+                ],
+                "summary": "Get single treatment",
+                "description": "Returns details of single treatment",
+                "operationId": "e6926b52e203f7cef1bf9e7cbfb12c3f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "treatment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "treatments"
+                ],
+                "summary": "Update single treatment",
+                "description": "update single treatment record",
+                "operationId": "e817fcd2bef02ae1cb7b0efc03fe6a4b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "treatment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "treatment name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status of treatment name active/inactive",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Active",
+                            "enum": [
+                                "Active",
+                                "Inactive"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/profile": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user profile",
+                "description": "Returns user profile",
+                "operationId": "userProfile",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update profile",
+                "description": "Update profile",
+                "operationId": "UpdateUserProfile",
+                "requestBody": {
+                    "description": "Update user's profile",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "description": "image file to upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "first_name": {
+                                        "description": "User's first name",
+                                        "type": "string",
+                                        "format": ""
+                                    },
+                                    "last_name": {
+                                        "description": "User's Lastname",
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "description": "User's Phone number",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User's email address",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "dob": {
+                                        "description": "User's DOB (YYYY-MM-DD)",
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/deactivate": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Deactivate account",
+                "description": "Deactivate user account",
+                "operationId": "deactivateAccount",
+                "parameters": [
+                    {
+                        "name": "reason",
+                        "in": "query",
+                        "description": "reason",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/documents": {
+            "get": {
+                "tags": [
+                    "Users/Documents"
+                ],
+                "summary": "Get user documents",
+                "description": "Returns user documents",
+                "operationId": "userDocuments",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users/Documents"
+                ],
+                "summary": "Update profile",
+                "description": "create dcument",
+                "operationId": "CreateUserDocument",
+                "requestBody": {
+                    "description": "Create user document",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "front_view": {
+                                        "description": "Front view of image file to upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "back_view": {
+                                        "description": "Back view of image file to upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "type": {
+                                        "description": "Document type can be (Dialysis Regime, ID, or lab test)",
+                                        "type": "string",
+                                        "format": ""
+                                    },
+                                    "document_name": {
+                                        "description": "E.g drivers license, int'l passport, hiv test, Hepatitis",
+                                        "type": "string"
+                                    },
+                                    "country_of_issuance": {
+                                        "description": "E.g Germany",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token based Based",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Endpoints related to users"
+        },
+        {
+            "name": "Users/Auth",
+            "description": "Endpoints related to user authentication"
+        },
+        {
+            "name": "Users/Documents",
+            "description": "Endpoints related to user documents"
+        },
+        {
+            "name": "Users/Feedback",
+            "description": "Endpoints related to user feedback"
+        }
+    ]
+}
